@@ -1,27 +1,19 @@
-import { get } from "http";
 import { useEffect, useState } from "react";
-import { getProducts } from "../../services/store";
+import { getProducts, Product } from "../../services/store";
 
-interface Product {
-  title: string;
-}
+export default function StoreItems() {
+  const [products, setProducts] = useState<Product[]>([]);
 
-function storeItems(){
-    const [products, setProducts] = useState<Product[]>([]);
-    useEffect(() => {
-        const data = getProducts();
+  useEffect(() => {
+    getProducts()
+      .then((data) => {
         setProducts(data);
-    },[]);
+        console.log("Products from API:", data); 
+      })
+      .catch((err) => {
+        console.error("Error fetching products:", err);
+      });
+  }, []);
 
-    console.log(products);
-    return <div>
-        {products.map((product, index) => (
-            <div key={index}>{product.title}</div>
-        ))}
-    </div>;
-    
+  return null;
 }
-export default storeItems;
-
-
-
