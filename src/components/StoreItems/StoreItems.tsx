@@ -8,10 +8,10 @@ export default function StoreItems() {
     getProducts()
       .then((data) => {
         setProducts(data);
-        console.log("Products from API:", data); 
+        console.log("Products in state:", data);
       })
       .catch((err) => {
-        console.error("Error fetching products:", err);
+        console.error("Error:", err);
       });
   }, []);
 
